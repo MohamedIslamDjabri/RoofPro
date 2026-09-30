@@ -1,0 +1,6 @@
+{
+  "name": "RoofPro USA",
+  "description": "National reach. Local roofing experts delivering high-standard residential roofing solutions throughout Texas communities (Dallas, Houston, Austin, San Antonio).",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

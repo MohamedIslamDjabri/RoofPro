@@ -1,0 +1,285 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #002116;
+  --color-primary-container: #12372a;
+  --color-on-primary: #ffffff;
+  --color-on-primary-container: #7ba190;
+  --color-primary-fixed: #c3ebd8;
+  --color-primary-fixed-dim: #a8cfbd;
+  --color-on-primary-fixed: #002116;
+  --color-on-primary-fixed-variant: #2a4e3f;
+  --color-secondary: #376851;
+  --color-secondary-container: #b6ebcf;
+  --color-on-secondary: #ffffff;
+  --color-on-secondary-container: #3b6c55;
+  --color-secondary-fixed: #b9eed2;
+  --color-secondary-fixed-dim: #9ed2b6;
+  --color-on-secondary-fixed: #002114;
+  --color-on-secondary-fixed-variant: #1d4f3b;
+  --color-tertiary: #251a00;
+  --color-tertiary-container: #3f2e00;
+  --color-tertiary-fixed: #ffdf98;
+  --color-tertiary-fixed-dim: #f0c044;
+  --color-on-tertiary: #ffffff;
+  --color-on-tertiary-fixed: #251a00;
+  --color-on-tertiary-fixed-variant: #5a4300;
+  --color-on-tertiary-container: #bd9212;
+  --color-surface: #f1fcf2;
+  --color-surface-bright: #f1fcf2;
+  --color-surface-dim: #d1ddd3;
+  --color-surface-variant: #dae5dc;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #ebf7ed;
+  --color-surface-container: #e5f1e7;
+  --color-surface-container-high: #e0ebe1;
+  --color-surface-container-highest: #dae5dc;
+  --color-on-surface: #141e18;
+  --color-on-surface-variant: #414844;
+  --color-inverse-surface: #28332c;
+  --color-inverse-on-surface: #e8f4ea;
+  --color-outline: #717974;
+  --color-outline-variant: #c1c8c3;
+  --color-surface-tint: #416656;
+  --color-error: #ba1a1a;
+  --color-error-container: #ffdad6;
+  --color-on-error: #ffffff;
+  --color-on-error-container: #93000a;
+  --color-background: #f1fcf2;
+  --color-on-background: #141e18;
+
+  --spacing-space-xs: 0.25rem;
+  --spacing-space-sm: 0.5rem;
+  --spacing-space-md: 1rem;
+  --spacing-space-lg: 1.5rem;
+  --spacing-space-xl: 2.5rem;
+  --spacing-gutter-sm: 1rem;
+  --spacing-gutter: 1.5rem;
+  --spacing-gutter-lg: 2rem;
+  --spacing-margin: 1rem;
+  --spacing-margin-md: 2rem;
+  --spacing-margin-lg: 3.5rem;
+  --spacing-29: 7.25rem;
+
+  --font-manrope: "Manrope", sans-serif;
+  --font-inter: "Inter", sans-serif;
+  --font-display-xl: "Manrope", sans-serif;
+  --font-headline-lg: "Manrope", sans-serif;
+  --font-headline-md: "Manrope", sans-serif;
+  --font-headline-sm: "Manrope", sans-serif;
+  --font-title-md: "Manrope", sans-serif;
+  --font-body-lg: "Inter", sans-serif;
+  --font-body-md: "Inter", sans-serif;
+  --font-body-sm: "Inter", sans-serif;
+  --font-label-lg: "Inter", sans-serif;
+  --font-label-md: "Inter", sans-serif;
+  --font-label-caps: "Inter", sans-serif;
+}
+
+@layer base {
+  html, body {
+    margin: 0;
+    padding: 0;
+    background-color: #f1fcf2;
+    color: #141e18;
+    font-family: "Inter", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+/* Material Symbols Outlined font class */
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 20px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Precise Stitch Typography & Font-Family Mappings */
+.font-display-xl, .font-headline-lg, .font-headline-md, .font-headline-sm, .font-title-md, .font-display-xl-mobile, .font-headline-lg-mobile {
+  font-family: "Manrope", sans-serif;
+}
+
+.font-body-lg, .font-body-md, .font-body-sm, .font-label-lg, .font-label-md, .font-label-caps {
+  font-family: "Inter", sans-serif;
+}
+
+/* Font Size Classes exactly as defined in Stitch Tailwind Config */
+.text-display-xl {
+  font-size: 56px;
+  line-height: 64px;
+  letter-spacing: -0.02em;
+  font-weight: 800;
+}
+
+.text-display-xl-mobile {
+  font-size: 36px;
+  line-height: 44px;
+  letter-spacing: -0.02em;
+  font-weight: 800;
+}
+
+.text-headline-lg {
+  font-size: 40px;
+  line-height: 48px;
+  letter-spacing: -0.015em;
+  font-weight: 700;
+}
+
+.text-headline-lg-mobile {
+  font-size: 28px;
+  line-height: 36px;
+  letter-spacing: -0.015em;
+  font-weight: 700;
+}
+
+.text-headline-md {
+  font-size: 28px;
+  line-height: 36px;
+  letter-spacing: -0.01em;
+  font-weight: 700;
+}
+
+.text-headline-sm {
+  font-size: 22px;
+  line-height: 30px;
+  letter-spacing: 0em;
+  font-weight: 600;
+}
+
+.text-title-md {
+  font-size: 18px;
+  line-height: 26px;
+  letter-spacing: 0em;
+  font-weight: 600;
+}
+
+.text-body-lg {
+  font-size: 18px;
+  line-height: 28px;
+  letter-spacing: 0em;
+  font-weight: 400;
+}
+
+.text-body-md {
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0em;
+  font-weight: 400;
+}
+
+.text-body-sm {
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.01em;
+  font-weight: 400;
+}
+
+.text-label-lg {
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.02em;
+  font-weight: 600;
+}
+
+.text-label-md {
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.04em;
+  font-weight: 600;
+}
+
+.text-label-caps {
+  font-size: 11px;
+  line-height: 14px;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+}
+
+/* Responsive Font Sizes */
+@media (min-width: 768px) {
+  .md\:text-headline-lg {
+    font-size: 40px;
+    line-height: 48px;
+    letter-spacing: -0.015em;
+    font-weight: 700;
+  }
+  .md\:text-headline-sm {
+    font-size: 22px;
+    line-height: 30px;
+    letter-spacing: 0em;
+    font-weight: 600;
+  }
+  .md\:text-title-md {
+    font-size: 18px;
+    line-height: 26px;
+    letter-spacing: 0em;
+    font-weight: 600;
+  }
+  .md\:text-body-md {
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0em;
+    font-weight: 400;
+  }
+}
+
+@media (min-width: 1024px) {
+  .lg\:text-display-xl {
+    font-size: 56px;
+    line-height: 64px;
+    letter-spacing: -0.02em;
+    font-weight: 800;
+  }
+  .lg\:text-headline-lg {
+    font-size: 40px;
+    line-height: 48px;
+    letter-spacing: -0.015em;
+    font-weight: 700;
+  }
+  .lg\:text-headline-md {
+    font-size: 28px;
+    line-height: 36px;
+    letter-spacing: -0.01em;
+    font-weight: 700;
+  }
+  .lg\:text-headline-sm {
+    font-size: 22px;
+    line-height: 30px;
+    letter-spacing: 0em;
+    font-weight: 600;
+  }
+}
+
+/* Margins & Paddings matching Stitch */
+.px-margin {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+@media (min-width: 768px) {
+  .md\:px-margin-md {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+@media (min-width: 1024px) {
+  .lg\:px-margin-lg {
+    padding-left: 3.5rem;
+    padding-right: 3.5rem;
+  }
+}
+
+.pt-29 {
+  padding-top: 7.25rem;
+}
