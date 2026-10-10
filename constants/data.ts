@@ -9,7 +9,7 @@ export const SITE_CONFIG = {
   phoneRaw: "8005557663",
   email: "hello@roofprousa.com",
   operatingHours: "Monday – Saturday: 7:00 AM – 7:00 PM | 24/7 Emergency Storm Dispatch",
-  logoUrl: "https://lh3.googleusercontent.com/aida/AEtjO1WL58_WUH2UQLhazrp9VCQo0ggQ943F1jOu2WMg3zu-l8_MLj8xAuM7GTJM6j0gcMx3BkG2Xj8SMkporFraFiQjxr0qSEut885ed0f3LE9TT2UXceLwGP_PZkXZKzNiPQs2sQvieus0758T-yIaRWsawwAP8_qMft716xX0vwjhJSsGpkVyrfB3asL0YDUqhwQKVvJOF3XZq5oXmaQdfH0btBgXNLts4l0wobyyvVjfVWuxRlrMEd-CO4c",
+  logoUrl: "/logo.svg",
   heroImage: "https://lh3.googleusercontent.com/aida-public/AB6AXuA9kQi4mkcvSSDQWiDY_ipovRZiZqGhBt8xC0R4x8bJ5jxAH9CCEmeXZUhMGGIGPRuRpjpe_M023gDi26QfLskvhX14AGqoZgUUJ65DFKXYu21qUDze7v1MFISaS47KJV2US2m414C79INz169Zlr7UpLZpFHuEE8x7xUyMb2rSeBKCfcxWHyx_Ht4FE7fgOsYIWwLYdVNY1BANwr6ksYa_sZpYKEXov-YaPNap_ncen5fOZKkDGApd",
   caseStudyImage: "https://lh3.googleusercontent.com/aida-public/AB6AXuBxiCUv4K5jROLcxzg45gdoimI-voVwuTU8oNgWdaUHHBFKvhva2ALCWu3VjfrWteSwwKSAcVOOTxiSqc-xNyWbGvPrG2X6RhxXVJ9sXcB-zkAHUYeMx47Jm27esFl-HicmFlK2b7vnICHptGxTjafJpNchCWUaggDJ6u55_QF6C4h2qHzHXJ-rpLIJ-mlGzvNjDx91fSAj91bjkcMeEoVCqgdJ5o0WE2tTS7Vv3VDf05oOIw6mQsqr"
 };

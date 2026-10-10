@@ -59,8 +59,8 @@
   --spacing-gutter: 1.5rem;
   --spacing-gutter-lg: 2rem;
   --spacing-margin: 1rem;
-  --spacing-margin-md: 2rem;
-  --spacing-margin-lg: 3.5rem;
+  --spacing-margin-md: 1.5rem;
+  --spacing-margin-lg: 2rem;
   --spacing-29: 7.25rem;
 
   --font-manrope: "Manrope", sans-serif;
@@ -82,6 +82,8 @@
   html, body {
     margin: 0;
     padding: 0;
+    width: 100%;
+    overflow-x: hidden;
     background-color: #f1fcf2;
     color: #141e18;
     font-family: "Inter", sans-serif;
@@ -269,17 +271,17 @@
 }
 @media (min-width: 768px) {
   .md\:px-margin-md {
-    padding-left: 2rem;
-    padding-right: 2rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
   }
 }
 @media (min-width: 1024px) {
   .lg\:px-margin-lg {
-    padding-left: 3.5rem;
-    padding-right: 3.5rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
   }
 }
 
 .pt-29 {
-  padding-top: 7.25rem;
+  padding-top: 7.5rem;
 }

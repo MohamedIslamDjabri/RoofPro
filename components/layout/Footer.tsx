@@ -19,9 +19,9 @@ export default function Footer() {
               <Image
                 src={SITE_CONFIG.logoUrl}
                 alt="RoofPro USA Logo"
-                width={160}
-                height={32}
-                className="h-8 w-auto object-contain brightness-0 invert"
+                width={36}
+                height={36}
+                className="h-9 w-9 object-contain"
                 referrerPolicy="no-referrer"
               />
               <div className="flex flex-col">
