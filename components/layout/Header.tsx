@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
+import { motion, AnimatePresence } from 'motion/react';
 import { useLocation } from '@/context/LocationContext';
 import { useAIModal } from '@/context/AIModalContext';
 import { SITE_CONFIG, NAV_LINKS } from '@/constants/data';
@@ -29,7 +30,7 @@ export default function Header() {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 w-full bg-surface-container-lowest shadow-[0_2px_12px_rgba(18,55,42,0.06)] border-b border-outline-variant/30">
+    <header className="fixed top-0 left-0 right-0 z-50 w-full bg-surface-container-lowest/95 backdrop-blur-md shadow-[0_2px_12px_rgba(18,55,42,0.06)] border-b border-outline-variant/30">
       {/* Main Navigation Bar */}
       <div className="w-full">
         <div className="h-20 max-w-7xl mx-auto px-margin md:px-margin-md lg:px-margin-lg flex items-center justify-between gap-4">
@@ -41,7 +42,7 @@ export default function Header() {
                 alt="RoofPro USA Logo"
                 width={36}
                 height={36}
-                className="h-9 w-9 object-contain shrink-0"
+                className="h-9 w-9 object-contain shrink-0 group-hover:scale-105 transition-transform"
                 priority
                 referrerPolicy="no-referrer"
               />
@@ -70,59 +71,67 @@ export default function Header() {
                 </span>
               </button>
 
-              {dropdownOpen && (
-                <div className="absolute left-0 top-full pt-2 w-72 z-50 animate-fadeIn">
-                  <div className="bg-surface-container-lowest rounded-xl p-4 shadow-[0_16px_32px_rgba(18,55,42,0.12)] border border-outline-variant/60">
-                    <div className="flex items-center justify-between pb-2 mb-2 border-b border-surface-container-high">
-                      <span className="font-label-caps text-label-caps text-on-surface-variant">Select Regional Dispatch</span>
-                      <span className="font-label-caps text-label-caps text-secondary font-bold">4 Active Hubs</span>
-                    </div>
-                    <div className="space-y-1">
-                      {hubs.map((hub) => {
-                        const isActive = selectedSlug === hub.slug;
-                        return (
-                          <div
-                            key={hub.slug}
-                            onClick={() => handleSelectHub(hub.slug)}
-                            className={`flex items-center justify-between p-2 rounded-lg cursor-pointer transition-colors ${
-                              isActive
-                                ? 'bg-surface-container text-on-surface font-semibold'
-                                : 'text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface'
-                            }`}
-                          >
-                            <div>
-                              <div className="font-title-md text-label-lg text-primary-container font-bold flex items-center gap-1.5">
-                                {isActive && <span className="w-1.5 h-1.5 rounded-full bg-secondary"></span>}
-                                {hub.name}
+              <AnimatePresence>
+                {dropdownOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 8, scale: 0.97 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 6, scale: 0.97 }}
+                    transition={{ duration: 0.18, ease: 'easeOut' }}
+                    className="absolute left-0 top-full pt-2 w-72 z-50"
+                  >
+                    <div className="bg-surface-container-lowest rounded-xl p-4 shadow-[0_16px_32px_rgba(18,55,42,0.12)] border border-outline-variant/60">
+                      <div className="flex items-center justify-between pb-2 mb-2 border-b border-surface-container-high">
+                        <span className="font-label-caps text-label-caps text-on-surface-variant">Select Regional Dispatch</span>
+                        <span className="font-label-caps text-label-caps text-secondary font-bold">4 Active Hubs</span>
+                      </div>
+                      <div className="space-y-1">
+                        {hubs.map((hub) => {
+                          const isActive = selectedSlug === hub.slug;
+                          return (
+                            <div
+                              key={hub.slug}
+                              onClick={() => handleSelectHub(hub.slug)}
+                              className={`flex items-center justify-between p-2 rounded-lg cursor-pointer transition-colors ${
+                                isActive
+                                  ? 'bg-surface-container text-on-surface font-semibold'
+                                  : 'text-on-surface-variant hover:bg-surface-container-low hover:text-on-surface'
+                              }`}
+                            >
+                              <div>
+                                <div className="font-title-md text-label-lg text-primary-container font-bold flex items-center gap-1.5">
+                                  {isActive && <span className="w-1.5 h-1.5 rounded-full bg-secondary"></span>}
+                                  {hub.name}
+                                </div>
+                                <div className="text-on-surface-variant font-body-sm text-[11px]">
+                                  {hub.region} • {hub.phone}
+                                </div>
                               </div>
-                              <div className="text-on-surface-variant font-body-sm text-[11px]">
-                                {hub.region} • {hub.phone}
-                              </div>
+                              {isActive ? (
+                                <span className="font-label-caps text-[10px] px-1.5 py-0.5 rounded bg-secondary/15 text-secondary font-bold">
+                                  Active
+                                </span>
+                              ) : (
+                                <span className="material-symbols-outlined text-[16px] text-outline">arrow_forward</span>
+                              )}
                             </div>
-                            {isActive ? (
-                              <span className="font-label-caps text-[10px] px-1.5 py-0.5 rounded bg-secondary/15 text-secondary font-bold">
-                                Active
-                              </span>
-                            ) : (
-                              <span className="material-symbols-outlined text-[16px] text-outline">arrow_forward</span>
-                            )}
-                          </div>
-                        );
-                      })}
+                          );
+                        })}
+                      </div>
+                      <div className="mt-2 pt-2 border-t border-surface-container-high text-center">
+                        <Link
+                          href="/locations"
+                          onClick={() => setDropdownOpen(false)}
+                          className="text-xs text-secondary hover:text-primary-container font-bold inline-flex items-center gap-1"
+                        >
+                          <span>Explore all Texas hub locations</span>
+                          <span className="material-symbols-outlined text-[14px]">east</span>
+                        </Link>
+                      </div>
                     </div>
-                    <div className="mt-2 pt-2 border-t border-surface-container-high text-center">
-                      <Link
-                        href="/locations"
-                        onClick={() => setDropdownOpen(false)}
-                        className="text-xs text-secondary hover:text-primary-container font-bold inline-flex items-center gap-1"
-                      >
-                        <span>Explore all Texas hub locations</span>
-                        <span className="material-symbols-outlined text-[14px]">east</span>
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              )}
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </div>
 
@@ -134,12 +143,19 @@ export default function Header() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`px-3 py-2 rounded-lg transition-colors font-label-lg text-sm whitespace-nowrap inline-flex items-center ${
+                  className={`relative px-3 py-2 rounded-lg transition-colors font-label-lg text-sm whitespace-nowrap inline-flex items-center z-10 ${
                     isActive
-                      ? 'bg-surface-container-high text-primary-container font-bold'
-                      : 'text-on-surface-variant hover:text-on-surface hover:bg-surface-container'
+                      ? 'text-primary-container font-bold'
+                      : 'text-on-surface-variant hover:text-on-surface hover:bg-surface-container/60'
                   }`}
                 >
+                  {isActive && (
+                    <motion.span
+                      layoutId="headerActiveNav"
+                      transition={{ type: 'spring', stiffness: 400, damping: 32 }}
+                      className="absolute inset-0 rounded-lg bg-surface-container-high -z-10"
+                    />
+                  )}
                   <span>{link.label}</span>
                   {link.badge && (
                     <span className="text-tertiary-fixed-dim font-bold text-xs ml-1">{link.badge}</span>
@@ -162,17 +178,21 @@ export default function Header() {
             </a>
 
             {/* Primary CTA */}
-            <Link
-              href="/contact?type=estimate"
-              className="bg-tertiary-fixed-dim hover:bg-tertiary-fixed text-on-tertiary-fixed font-label-lg text-xs xl:text-sm font-bold px-4 py-2.5 rounded-lg shadow-[0_2px_8px_rgba(231,184,60,0.3)] hover:shadow-[0_4px_14px_rgba(231,184,60,0.45)] transition-all inline-flex items-center gap-1.5 whitespace-nowrap shrink-0"
-            >
-              <span>Get Free Estimate</span>
-              <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
-            </Link>
+            <motion.div whileHover={{ y: -1.5 }} whileTap={{ scale: 0.98 }} className="shrink-0">
+              <Link
+                href="/contact?type=estimate"
+                className="bg-tertiary-fixed-dim hover:bg-tertiary-fixed text-on-tertiary-fixed font-label-lg text-xs xl:text-sm font-bold px-4 py-2.5 rounded-lg shadow-[0_2px_8px_rgba(231,184,60,0.3)] hover:shadow-[0_4px_14px_rgba(231,184,60,0.45)] transition-all inline-flex items-center gap-1.5 whitespace-nowrap shrink-0"
+              >
+                <span>Get Free Estimate</span>
+                <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
+              </Link>
+            </motion.div>
 
             {/* AI Assistant Avatar Button */}
             <div className="hidden sm:flex items-center shrink-0">
-              <button
+              <motion.button
+                whileHover={{ scale: 1.08 }}
+                whileTap={{ scale: 0.94 }}
                 type="button"
                 onClick={openChat}
                 title="RoofPro AI Booking & Voice Dispatch"
@@ -180,7 +200,7 @@ export default function Header() {
               >
                 <span className="material-symbols-outlined text-on-primary text-[18px]">smart_toy</span>
                 <span className="w-2 h-2 rounded-full bg-tertiary-fixed-dim absolute -top-0.5 -right-0.5 border-2 border-surface-container-lowest animate-pulse"></span>
-              </button>
+              </motion.button>
             </div>
 
             {/* Mobile Menu Toggle Button */}
@@ -199,104 +219,112 @@ export default function Header() {
       </div>
 
       {/* Mobile Menu Panel */}
-      {mobileMenuOpen && (
-        <div className="lg:hidden bg-surface-container-lowest border-b border-outline-variant/40 shadow-xl px-margin py-4">
-          {/* Location Picker on Mobile */}
-          <div className="p-3 mb-4 rounded-xl bg-surface-container-low border border-outline-variant/50">
-            <div className="flex items-center justify-between mb-2">
-              <span className="font-label-caps text-xs text-on-surface-variant font-bold">Select Active Texas Market:</span>
-              <span className="text-xs text-secondary font-bold">Currently: {currentLocation.city}</span>
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.25, ease: 'easeInOut' }}
+            className="lg:hidden bg-surface-container-lowest border-b border-outline-variant/40 shadow-xl px-margin py-4 overflow-hidden"
+          >
+            {/* Location Picker on Mobile */}
+            <div className="p-3 mb-4 rounded-xl bg-surface-container-low border border-outline-variant/50">
+              <div className="flex items-center justify-between mb-2">
+                <span className="font-label-caps text-xs text-on-surface-variant font-bold">Select Active Texas Market:</span>
+                <span className="text-xs text-secondary font-bold">Currently: {currentLocation.city}</span>
+              </div>
+              <div className="grid grid-cols-2 gap-1.5">
+                {hubs.map((hub) => (
+                  <button
+                    key={hub.slug}
+                    onClick={() => {
+                      handleSelectHub(hub.slug);
+                    }}
+                    className={`px-2 py-2 rounded text-xs text-left transition-colors flex items-center gap-1.5 cursor-pointer ${
+                      selectedSlug === hub.slug
+                        ? 'bg-primary-container text-on-primary font-bold'
+                        : 'bg-surface-container-lowest text-on-surface hover:bg-surface-container'
+                    }`}
+                  >
+                    <span className={`w-1.5 h-1.5 rounded-full ${selectedSlug === hub.slug ? 'bg-tertiary-fixed-dim' : 'bg-outline'}`}></span>
+                    <span>{hub.name.split('-')[0]}</span>
+                  </button>
+                ))}
+              </div>
             </div>
-            <div className="grid grid-cols-2 gap-1.5">
-              {hubs.map((hub) => (
-                <button
-                  key={hub.slug}
-                  onClick={() => {
-                    handleSelectHub(hub.slug);
-                  }}
-                  className={`px-2 py-2 rounded text-xs text-left transition-colors flex items-center gap-1.5 cursor-pointer ${
-                    selectedSlug === hub.slug
-                      ? 'bg-primary-container text-on-primary font-bold'
-                      : 'bg-surface-container-lowest text-on-surface hover:bg-surface-container'
-                  }`}
-                >
-                  <span className={`w-1.5 h-1.5 rounded-full ${selectedSlug === hub.slug ? 'bg-tertiary-fixed-dim' : 'bg-outline'}`}></span>
-                  <span>{hub.name.split('-')[0]}</span>
-                </button>
-              ))}
+
+            {/* Nav Links */}
+            <nav className="flex flex-col space-y-1 mb-4">
+              {NAV_LINKS.map((link) => {
+                const isActive = pathname === link.href;
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`px-3 py-2.5 rounded-lg text-sm font-semibold transition-colors flex items-center justify-between ${
+                      isActive
+                        ? 'bg-primary-container text-on-primary font-bold'
+                        : 'text-on-surface hover:bg-surface-container'
+                    }`}
+                  >
+                    <span>{link.label}</span>
+                    {link.badge && (
+                      <span className="text-tertiary-fixed-dim font-bold text-xs">{link.badge}</span>
+                    )}
+                  </Link>
+                );
+              })}
+            </nav>
+
+            {/* AI Voice Call & Chat in Mobile Menu */}
+            <div className="grid grid-cols-2 gap-2 mb-3">
+              <button
+                type="button"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  openVoiceCall();
+                }}
+                className="py-2.5 px-3 rounded-lg bg-primary-container text-on-primary font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm cursor-pointer"
+              >
+                <span className="material-symbols-outlined text-[16px] text-tertiary-fixed-dim">phone_in_talk</span>
+                <span>AI Voice Call</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  openChat();
+                }}
+                className="py-2.5 px-3 rounded-lg bg-surface-container hover:bg-surface-container-high text-primary-container font-bold text-xs flex items-center justify-center gap-1.5 border border-outline-variant/60 cursor-pointer"
+              >
+                <span className="material-symbols-outlined text-[16px] text-secondary">smart_toy</span>
+                <span>AI Chat Assistant</span>
+              </button>
             </div>
-          </div>
 
-          {/* Nav Links */}
-          <nav className="flex flex-col space-y-1 mb-4">
-            {NAV_LINKS.map((link) => {
-              const isActive = pathname === link.href;
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`px-3 py-2.5 rounded-lg text-sm font-semibold transition-colors flex items-center justify-between ${
-                    isActive
-                      ? 'bg-primary-container text-on-primary font-bold'
-                      : 'text-on-surface hover:bg-surface-container'
-                  }`}
-                >
-                  <span>{link.label}</span>
-                  {link.badge && (
-                    <span className="text-tertiary-fixed-dim font-bold text-xs">{link.badge}</span>
-                  )}
-                </Link>
-              );
-            })}
-          </nav>
-
-          {/* AI Voice Call & Chat in Mobile Menu */}
-          <div className="grid grid-cols-2 gap-2 mb-3">
-            <button
-              type="button"
-              onClick={() => {
-                setMobileMenuOpen(false);
-                openVoiceCall();
-              }}
-              className="py-2.5 px-3 rounded-lg bg-primary-container text-on-primary font-bold text-xs flex items-center justify-center gap-1.5 shadow-sm cursor-pointer"
-            >
-              <span className="material-symbols-outlined text-[16px] text-tertiary-fixed-dim">phone_in_talk</span>
-              <span>AI Voice Call</span>
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                setMobileMenuOpen(false);
-                openChat();
-              }}
-              className="py-2.5 px-3 rounded-lg bg-surface-container hover:bg-surface-container-high text-primary-container font-bold text-xs flex items-center justify-center gap-1.5 border border-outline-variant/60 cursor-pointer"
-            >
-              <span className="material-symbols-outlined text-[16px] text-secondary">smart_toy</span>
-              <span>AI Chat Assistant</span>
-            </button>
-          </div>
-
-          {/* Direct Call & Local Office Links in Mobile Menu */}
-          <div className="pt-3 border-t border-surface-container flex flex-col gap-2">
-            <a
-              href={`tel:${currentLocation.phone.replace(/[^0-9]/g, '')}`}
-              className="flex items-center justify-center gap-2 py-3 rounded-lg bg-surface-container text-primary-container font-bold text-sm"
-            >
-              <span className="material-symbols-outlined text-[18px] text-secondary">call</span>
-              <span>Call {currentLocation.city} Office: {currentLocation.phone}</span>
-            </a>
-            <Link
-              href="/contact?type=estimate"
-              onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center justify-center gap-2 py-3 rounded-lg bg-tertiary-fixed-dim text-on-tertiary-fixed font-bold text-sm shadow"
-            >
-              <span>Get Free Roof Estimate</span>
-              <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
-            </Link>
-          </div>
-        </div>
-      )}
+            {/* Direct Call & Local Office Links in Mobile Menu */}
+            <div className="pt-3 border-t border-surface-container flex flex-col gap-2">
+              <a
+                href={`tel:${currentLocation.phone.replace(/[^0-9]/g, '')}`}
+                className="flex items-center justify-center gap-2 py-3 rounded-lg bg-surface-container text-primary-container font-bold text-sm"
+              >
+                <span className="material-symbols-outlined text-[18px] text-secondary">call</span>
+                <span>Call {currentLocation.city} Office: {currentLocation.phone}</span>
+              </a>
+              <Link
+                href="/contact?type=estimate"
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center justify-center gap-2 py-3 rounded-lg bg-tertiary-fixed-dim text-on-tertiary-fixed font-bold text-sm shadow"
+              >
+                <span>Get Free Roof Estimate</span>
+                <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
+              </Link>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }

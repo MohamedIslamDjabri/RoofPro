@@ -3,11 +3,21 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { motion, AnimatePresence } from 'motion/react';
 import LocationAlertStrip from '@/components/layout/LocationAlertStrip';
 import LocationSelector from '@/components/locations/LocationSelector';
 import ServiceCard from '@/components/services/ServiceCard';
 import { useLocation } from '@/context/LocationContext';
 import { SITE_CONFIG, COMPANY_STATS, VALUE_PROPS, SERVICES, LOCATIONS } from '@/constants/data';
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  visible: (delay = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.55, delay, ease: [0.22, 1, 0.36, 1] as const },
+  }),
+};
 
 export default function HomePage() {
   const { currentLocation } = useLocation();
@@ -23,104 +33,156 @@ export default function HomePage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-gutter lg:gap-gutter-lg items-center">
             {/* Text Content */}
             <div className="lg:col-span-7 flex flex-col space-y-space-lg">
-              <div className="inline-flex items-center gap-2 self-start px-3 py-1.5 rounded-full bg-surface-container-highest shadow-sm">
-                <span className="w-2 h-2 rounded-full bg-secondary"></span>
+              <motion.div
+                initial="hidden"
+                animate="visible"
+                custom={0}
+                variants={fadeUp}
+                className="inline-flex items-center gap-2 self-start px-3 py-1.5 rounded-full bg-surface-container-highest shadow-sm"
+              >
+                <span className="w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
                 <span className="font-label-caps text-label-caps uppercase tracking-wider text-primary-container font-bold">
                   Texas Multi-Location Headquarters
                 </span>
                 <span className="font-label-caps text-label-caps px-2 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed font-bold">
                   {currentLocation.city} Hub
                 </span>
-              </div>
+              </motion.div>
 
-              <div className="space-y-space-sm">
+              <motion.div
+                initial="hidden"
+                animate="visible"
+                custom={0.1}
+                variants={fadeUp}
+                className="space-y-space-sm"
+              >
                 <h1 className="font-display-xl text-headline-lg lg:text-display-xl text-primary font-extrabold tracking-tight">
                   Reliable Roofing. Local Experts. One RoofPro Standard.
                 </h1>
                 <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl leading-relaxed">
                   Professional roof repair, full replacement, drone inspections, and storm damage restoration from dedicated regional master installers across Dallas, Houston, Austin, and San Antonio.
                 </p>
-              </div>
+              </motion.div>
 
               {/* Dual CTA Group */}
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-space-md pt-2">
-                <Link
-                  className="bg-tertiary-fixed-dim hover:bg-tertiary-fixed text-on-tertiary-fixed font-label-lg text-label-lg font-bold px-7 py-4 rounded-lg shadow-md hover:shadow-xl transition-all flex items-center justify-center gap-space-xs text-center"
-                  href="/contact?type=estimate"
-                >
-                  <span>Get a Free Estimate</span>
-                  <span className="material-symbols-outlined text-[20px]">arrow_forward</span>
-                </Link>
-                <a
-                  className="bg-surface-container-lowest hover:bg-surface-container text-primary-container font-label-lg text-label-lg font-semibold px-6 py-4 rounded-lg shadow-sm hover:shadow-md transition-all flex items-center justify-center gap-space-xs text-center"
-                  href="#location-selector-section"
-                >
-                  <span className="material-symbols-outlined text-[20px] text-secondary">domain</span>
-                  <span>Find Your Local RoofPro Office</span>
-                </a>
-              </div>
+              <motion.div
+                initial="hidden"
+                animate="visible"
+                custom={0.2}
+                variants={fadeUp}
+                className="flex flex-col sm:flex-row items-stretch sm:items-center gap-space-md pt-2"
+              >
+                <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }}>
+                  <Link
+                    className="bg-tertiary-fixed-dim hover:bg-tertiary-fixed text-on-tertiary-fixed font-label-lg text-label-lg font-bold px-7 py-4 rounded-lg shadow-md hover:shadow-xl transition-all flex items-center justify-center gap-space-xs text-center"
+                    href="/contact?type=estimate"
+                  >
+                    <span>Get a Free Estimate</span>
+                    <span className="material-symbols-outlined text-[20px]">arrow_forward</span>
+                  </Link>
+                </motion.div>
+                <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }}>
+                  <a
+                    className="bg-surface-container-lowest hover:bg-surface-container text-primary-container font-label-lg text-label-lg font-semibold px-6 py-4 rounded-lg shadow-sm hover:shadow-md transition-all flex items-center justify-center gap-space-xs text-center"
+                    href="#location-selector-section"
+                  >
+                    <span className="material-symbols-outlined text-[20px] text-secondary">domain</span>
+                    <span>Find Your Local RoofPro Office</span>
+                  </a>
+                </motion.div>
+              </motion.div>
 
               {/* Trust Badges */}
-              <div className="pt-4 grid grid-cols-1 sm:grid-cols-3 gap-3">
-                <div className="flex items-center gap-2 p-2.5 rounded-lg bg-surface-container-lowest shadow-sm">
+              <motion.div
+                initial="hidden"
+                animate="visible"
+                custom={0.3}
+                variants={fadeUp}
+                className="pt-4 grid grid-cols-1 sm:grid-cols-3 gap-3"
+              >
+                <motion.div
+                  whileHover={{ y: -3 }}
+                  className="flex items-center gap-2 p-2.5 rounded-lg bg-surface-container-lowest shadow-sm"
+                >
                   <span className="material-symbols-outlined text-tertiary-fixed-dim text-[24px]">stars</span>
                   <div className="flex flex-col">
                     <span className="font-label-lg text-label-lg font-bold text-on-surface">4.9/5 Rating</span>
                     <span className="font-label-caps text-label-caps text-on-surface-variant">1,240+ Texas Reviews</span>
                   </div>
-                </div>
-                <div className="flex items-center gap-2 p-2.5 rounded-lg bg-surface-container-lowest shadow-sm">
+                </motion.div>
+                <motion.div
+                  whileHover={{ y: -3 }}
+                  className="flex items-center gap-2 p-2.5 rounded-lg bg-surface-container-lowest shadow-sm"
+                >
                   <span className="material-symbols-outlined text-secondary text-[24px]">verified</span>
                   <div className="flex flex-col">
                     <span className="font-label-lg text-label-lg font-bold text-on-surface">Licensed &amp; Insured</span>
                     <span className="font-label-caps text-label-caps text-on-surface-variant">TX License #48192</span>
                   </div>
-                </div>
-                <div className="flex items-center gap-2 p-2.5 rounded-lg bg-surface-container-lowest shadow-sm">
+                </motion.div>
+                <motion.div
+                  whileHover={{ y: -3 }}
+                  className="flex items-center gap-2 p-2.5 rounded-lg bg-surface-container-lowest shadow-sm"
+                >
                   <span className="material-symbols-outlined text-primary-container text-[24px]">workspace_premium</span>
                   <div className="flex flex-col">
                     <span className="font-label-lg text-label-lg font-bold text-on-surface">Master Elite</span>
                     <span className="font-label-caps text-label-caps text-on-surface-variant">Top 2% Certified</span>
                   </div>
-                </div>
-              </div>
+                </motion.div>
+              </motion.div>
             </div>
 
             {/* Hero Visual Element */}
-            <div className="lg:col-span-5 relative mt-6 lg:mt-0">
-              <div className="relative rounded-2xl overflow-hidden shadow-xl bg-surface-container-highest">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, x: 20 }}
+              animate={{ opacity: 1, scale: 1, x: 0 }}
+              transition={{ duration: 0.65, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+              className="lg:col-span-5 relative mt-6 lg:mt-0"
+            >
+              <div className="relative rounded-2xl overflow-hidden shadow-xl bg-surface-container-highest group">
                 <Image
                   src={SITE_CONFIG.heroImage}
                   alt="High-end Texas suburban residence with completed architectural roof"
                   width={600}
                   height={440}
-                  className="w-full h-[440px] object-cover"
+                  className="w-full h-[440px] object-cover group-hover:scale-105 transition-transform duration-700"
                   priority
                   referrerPolicy="no-referrer"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent"></div>
 
                 {/* Dynamic Info Overlay Card */}
-                <div className="absolute bottom-4 left-4 right-4 p-4 rounded-xl bg-surface-container-lowest/95 backdrop-blur-md shadow-lg flex items-center justify-between gap-3">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-lg bg-secondary-container text-on-secondary-container flex items-center justify-center font-bold">
-                      <span className="material-symbols-outlined text-[22px]">engineering</span>
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={currentLocation.slug}
+                    initial={{ opacity: 0, y: 16 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 10 }}
+                    transition={{ duration: 0.35, ease: 'easeOut' }}
+                    className="absolute bottom-4 left-4 right-4 p-4 rounded-xl bg-surface-container-lowest/95 backdrop-blur-md shadow-lg flex items-center justify-between gap-3"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-lg bg-secondary-container text-on-secondary-container flex items-center justify-center font-bold">
+                        <span className="material-symbols-outlined text-[22px]">engineering</span>
+                      </div>
+                      <div className="flex flex-col">
+                        <span className="font-title-md text-label-lg font-bold text-primary-container">
+                          {currentLocation.city} Hub Active Dispatch
+                        </span>
+                        <span className="font-body-sm text-xs text-on-surface-variant">
+                          {currentLocation.stats.activeCrews} certified crews on-site across {currentLocation.city} today
+                        </span>
+                      </div>
                     </div>
-                    <div className="flex flex-col">
-                      <span className="font-title-md text-label-lg font-bold text-primary-container">
-                        {currentLocation.city} Hub Active Dispatch
-                      </span>
-                      <span className="font-body-sm text-xs text-on-surface-variant">
-                        {currentLocation.stats.activeCrews} certified crews on-site across {currentLocation.city} today
-                      </span>
-                    </div>
-                  </div>
-                  <span className="px-2 py-1 rounded bg-secondary-fixed text-on-secondary-fixed font-label-caps text-label-caps font-bold uppercase">
-                    Active
-                  </span>
-                </div>
+                    <span className="px-2 py-1 rounded bg-secondary-fixed text-on-secondary-fixed font-label-caps text-label-caps font-bold uppercase flex items-center gap-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-secondary animate-ping"></span>
+                      Active
+                    </span>
+                  </motion.div>
+                </AnimatePresence>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -132,8 +194,15 @@ export default function HomePage() {
       <section className="w-full bg-surface-container-lowest py-16">
         <div className="max-w-7xl mx-auto px-margin md:px-margin-md lg:px-margin-lg">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 p-6 rounded-2xl bg-surface-container-low shadow-sm">
-            {COMPANY_STATS.map((stat) => (
-              <div key={stat.label} className="flex flex-col p-4">
+            {COMPANY_STATS.map((stat, idx) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.45, delay: idx * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                className="flex flex-col p-4"
+              >
                 <span className="font-label-caps text-label-caps text-secondary font-bold uppercase tracking-wider mb-1">
                   {stat.label}
                 </span>
@@ -148,14 +217,22 @@ export default function HomePage() {
                   )}
                 </div>
                 <p className="font-body-sm text-body-sm text-on-surface-variant mt-1">{stat.desc}</p>
-              </div>
+              </motion.div>
             ))}
           </div>
 
           {/* Key Value Props Ribbon */}
           <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
-            {VALUE_PROPS.map((vp) => (
-              <div key={vp.title} className="flex items-center gap-3 p-4 rounded-xl bg-surface-container">
+            {VALUE_PROPS.map((vp, idx) => (
+              <motion.div
+                key={vp.title}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.4, delay: idx * 0.07, ease: 'easeOut' }}
+                whileHover={{ y: -3 }}
+                className="flex items-center gap-3 p-4 rounded-xl bg-surface-container"
+              >
                 <div className="w-10 h-10 rounded-lg bg-surface-container-lowest text-secondary flex items-center justify-center shrink-0">
                   <span className="material-symbols-outlined text-[22px]">{vp.icon}</span>
                 </div>
@@ -163,7 +240,7 @@ export default function HomePage() {
                   <span className="font-label-lg text-label-lg font-bold text-primary-container">{vp.title}</span>
                   <span className="font-body-sm text-xs text-on-surface-variant">{vp.desc}</span>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
@@ -172,7 +249,13 @@ export default function HomePage() {
       {/* Section 4: Comprehensive Services Section */}
       <section className="w-full bg-surface py-16 lg:py-24">
         <div className="max-w-7xl mx-auto px-margin md:px-margin-md lg:px-margin-lg">
-          <div className="text-center max-w-3xl mx-auto mb-14 space-y-3">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            className="text-center max-w-3xl mx-auto mb-14 space-y-3"
+          >
             <span className="font-label-caps text-label-caps uppercase tracking-wider text-secondary font-bold">
               Comprehensive Capabilities
             </span>
@@ -182,16 +265,22 @@ export default function HomePage() {
             <p className="font-body-lg text-body-md text-on-surface-variant">
               Backed by Texas regional warehouses, company-owned scaffolding fleets, and certified local master installers.
             </p>
-          </div>
+          </motion.div>
 
           {/* 6 Service Cards Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {SERVICES.map((service) => (
-              <ServiceCard key={service.id} service={service} currentCity={currentLocation.city} />
+            {SERVICES.map((service, idx) => (
+              <ServiceCard key={service.id} service={service} currentCity={currentLocation.city} index={idx} />
             ))}
           </div>
 
-          <div className="text-center mt-12">
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.45, delay: 0.2 }}
+            className="text-center mt-12"
+          >
             <Link
               className="inline-flex items-center gap-2 bg-primary-container hover:bg-primary text-on-primary font-label-lg text-label-lg font-bold px-8 py-4 rounded-lg shadow-sm hover:shadow-md transition-all"
               href="/services"
@@ -199,14 +288,20 @@ export default function HomePage() {
               <span>Explore All Roofing Services</span>
               <span className="material-symbols-outlined text-[18px]">east</span>
             </Link>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Section 5: Local Expertise (Split Multi-Location Architecture Showcase) */}
       <section className="w-full bg-surface-container-low py-16 lg:py-24">
         <div className="max-w-7xl mx-auto px-margin md:px-margin-md lg:px-margin-lg">
-          <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12"
+          >
             <div className="space-y-3 max-w-2xl">
               <span className="font-label-caps text-label-caps uppercase tracking-wider text-secondary font-bold">
                 Texas Footprint &amp; Physical Offices
@@ -218,16 +313,21 @@ export default function HomePage() {
             <p className="font-body-md text-body-md text-on-surface-variant max-w-md">
               Why choose RoofPro USA? You get the buying power, lifetime warranties, and rigorous safety standards of a premier regional enterprise, matched with project managers who live in your city and know your local building codes.
             </p>
-          </div>
+          </motion.div>
 
           {/* 4 Market Cards Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {Object.values(LOCATIONS).map((loc) => {
+            {Object.values(LOCATIONS).map((loc, idx) => {
               const isSelected = currentLocation.slug === loc.slug;
               return (
-                <div
+                <motion.div
                   key={loc.slug}
-                  className={`flex flex-col justify-between p-6 rounded-2xl bg-surface-container-lowest shadow-sm hover:shadow-lg transition-all border-t-4 ${
+                  initial={{ opacity: 0, y: 24 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.15 }}
+                  transition={{ duration: 0.45, delay: idx * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                  whileHover={{ y: -5 }}
+                  className={`flex flex-col justify-between p-6 rounded-2xl bg-surface-container-lowest shadow-sm hover:shadow-lg transition-shadow border-t-4 ${
                     isSelected ? 'border-secondary ring-2 ring-secondary/20' : 'border-primary-container'
                   }`}
                 >
@@ -263,13 +363,13 @@ export default function HomePage() {
                   </div>
 
                   <Link
-                    className="mt-6 pt-4 border-t border-surface-container flex items-center justify-between font-label-md text-label-md font-bold text-primary-container hover:text-secondary transition-colors"
+                    className="mt-6 pt-4 border-t border-surface-container flex items-center justify-between font-label-md text-label-md font-bold text-primary-container hover:text-secondary transition-colors group"
                     href={`/locations/${loc.slug}`}
                   >
                     <span>View {loc.city} Location</span>
-                    <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+                    <span className="material-symbols-outlined text-[16px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
                   </Link>
-                </div>
+                </motion.div>
               );
             })}
           </div>
@@ -279,17 +379,29 @@ export default function HomePage() {
       {/* Section 6: Featured Local Project Case Study */}
       <section className="w-full bg-surface-container-lowest py-16 lg:py-24">
         <div className="max-w-7xl mx-auto px-margin md:px-margin-md lg:px-margin-lg">
-          <div className="p-8 md:p-12 rounded-3xl bg-surface-container-low shadow-sm">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.15 }}
+            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+            className="p-8 md:p-12 rounded-3xl bg-surface-container-low shadow-sm"
+          >
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
               {/* Image Split Column */}
-              <div className="lg:col-span-6 relative">
-                <div className="relative rounded-2xl overflow-hidden shadow-lg">
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.5, delay: 0.1, ease: 'easeOut' }}
+                className="lg:col-span-6 relative"
+              >
+                <div className="relative rounded-2xl overflow-hidden shadow-lg group">
                   <Image
                     src={SITE_CONFIG.caseStudyImage}
                     alt="Close up architectural detail of newly installed pewter gray Class 4 impact resistant shingles"
                     width={600}
                     height={380}
-                    className="w-full h-[380px] object-cover"
+                    className="w-full h-[380px] object-cover group-hover:scale-105 transition-transform duration-700"
                     referrerPolicy="no-referrer"
                   />
                   {/* Comparison / Info Pill */}
@@ -301,10 +413,16 @@ export default function HomePage() {
                     Preston Hollow, Dallas, TX
                   </div>
                 </div>
-              </div>
+              </motion.div>
 
               {/* Content Split Column */}
-              <div className="lg:col-span-6 space-y-6">
+              <motion.div
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.5, delay: 0.18, ease: 'easeOut' }}
+                className="lg:col-span-6 space-y-6"
+              >
                 <div className="space-y-2">
                   <span className="font-label-caps text-label-caps uppercase tracking-wider text-secondary font-bold">
                     Featured Regional Project
@@ -358,23 +476,29 @@ export default function HomePage() {
 
                 <div className="pt-2">
                   <Link
-                    className="inline-flex items-center gap-2 font-label-lg text-label-lg font-bold text-primary-container hover:text-secondary transition-colors"
+                    className="inline-flex items-center gap-2 font-label-lg text-label-lg font-bold text-primary-container hover:text-secondary transition-colors group"
                     href="/projects"
                   >
                     <span>View Full Texas Case Studies &amp; Galleries</span>
-                    <span className="material-symbols-outlined text-[18px]">east</span>
+                    <span className="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">east</span>
                   </Link>
                 </div>
-              </div>
+              </motion.div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Section 7: Texas Homeowner Testimonials */}
       <section className="w-full bg-surface py-16 lg:py-24">
         <div className="max-w-7xl mx-auto px-margin md:px-margin-md lg:px-margin-lg">
-          <div className="text-center max-w-3xl mx-auto mb-14 space-y-3">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.25 }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            className="text-center max-w-3xl mx-auto mb-14 space-y-3"
+          >
             <span className="font-label-caps text-label-caps uppercase tracking-wider text-secondary font-bold">
               Verified Customer Stories
             </span>
@@ -384,11 +508,18 @@ export default function HomePage() {
             <p className="font-body-lg text-body-md text-on-surface-variant">
               Read real reviews from neighbors across Dallas, Houston, Austin, and San Antonio who trusted RoofPro USA.
             </p>
-          </div>
+          </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Review 1: Dallas */}
-            <div className="p-6 rounded-2xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between border border-outline-variant/40">
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{ duration: 0.45, delay: 0, ease: [0.22, 1, 0.36, 1] }}
+              whileHover={{ y: -4 }}
+              className="p-6 rounded-2xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between border border-outline-variant/40"
+            >
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-1 text-tertiary-fixed-dim">
@@ -416,10 +547,17 @@ export default function HomePage() {
                   Verified Owner
                 </span>
               </div>
-            </div>
+            </motion.div>
 
             {/* Review 2: Houston */}
-            <div className="p-6 rounded-2xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between border border-outline-variant/40">
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{ duration: 0.45, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+              whileHover={{ y: -4 }}
+              className="p-6 rounded-2xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between border border-outline-variant/40"
+            >
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-1 text-tertiary-fixed-dim">
@@ -447,10 +585,17 @@ export default function HomePage() {
                   Verified Owner
                 </span>
               </div>
-            </div>
+            </motion.div>
 
             {/* Review 3: Austin */}
-            <div className="p-6 rounded-2xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between border border-outline-variant/40">
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{ duration: 0.45, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+              whileHover={{ y: -4 }}
+              className="p-6 rounded-2xl bg-surface-container-lowest shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between border border-outline-variant/40"
+            >
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-1 text-tertiary-fixed-dim">
@@ -478,7 +623,7 @@ export default function HomePage() {
                   Verified Owner
                 </span>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -486,7 +631,13 @@ export default function HomePage() {
       {/* Section 8: Global Conversion Banner */}
       <section className="w-full bg-primary-container py-16 lg:py-20 text-on-primary">
         <div className="max-w-7xl mx-auto px-margin md:px-margin-md lg:px-margin-lg">
-          <div className="p-8 md:p-12 lg:p-16 rounded-3xl bg-primary relative overflow-hidden shadow-2xl">
+          <motion.div
+            initial={{ opacity: 0, y: 24, scale: 0.98 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+            className="p-8 md:p-12 lg:p-16 rounded-3xl bg-primary relative overflow-hidden shadow-2xl"
+          >
             <div className="relative z-10 max-w-3xl space-y-6">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-container text-tertiary-fixed-dim font-label-caps text-label-caps font-bold">
                 <span className="material-symbols-outlined text-[16px]">verified_user</span>
@@ -502,21 +653,25 @@ export default function HomePage() {
               </p>
 
               <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-4">
-                <Link
-                  className="bg-tertiary-fixed-dim hover:bg-tertiary-fixed text-on-tertiary-fixed font-label-lg text-label-lg font-bold px-8 py-4 rounded-lg shadow-lg hover:shadow-xl transition-all text-center flex items-center justify-center gap-2"
-                  href="/contact?type=estimate"
-                >
-                  <span>Get a Free Roof Estimate</span>
-                  <span className="material-symbols-outlined text-[20px]">arrow_forward</span>
-                </Link>
+                <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }}>
+                  <Link
+                    className="bg-tertiary-fixed-dim hover:bg-tertiary-fixed text-on-tertiary-fixed font-label-lg text-label-lg font-bold px-8 py-4 rounded-lg shadow-lg hover:shadow-xl transition-all text-center flex items-center justify-center gap-2"
+                    href="/contact?type=estimate"
+                  >
+                    <span>Get a Free Roof Estimate</span>
+                    <span className="material-symbols-outlined text-[20px]">arrow_forward</span>
+                  </Link>
+                </motion.div>
 
-                <a
-                  className="bg-surface-container-lowest/10 hover:bg-surface-container-lowest/20 text-on-primary font-label-lg text-label-lg font-bold px-7 py-4 rounded-lg shadow-sm transition-all text-center flex items-center justify-center gap-2"
-                  href={`tel:${SITE_CONFIG.phoneRaw}`}
-                >
-                  <span className="material-symbols-outlined text-[20px] text-tertiary-fixed-dim">call</span>
-                  <span>Call {SITE_CONFIG.phone}</span>
-                </a>
+                <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }}>
+                  <a
+                    className="bg-surface-container-lowest/10 hover:bg-surface-container-lowest/20 text-on-primary font-label-lg text-label-lg font-bold px-7 py-4 rounded-lg shadow-sm transition-all text-center flex items-center justify-center gap-2"
+                    href={`tel:${SITE_CONFIG.phoneRaw}`}
+                  >
+                    <span className="material-symbols-outlined text-[20px] text-tertiary-fixed-dim">call</span>
+                    <span>Call {SITE_CONFIG.phone}</span>
+                  </a>
+                </motion.div>
               </div>
 
               <div className="pt-4 flex flex-wrap items-center gap-6 text-xs text-primary-fixed-dim">
@@ -534,7 +689,7 @@ export default function HomePage() {
                 </span>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
     </div>

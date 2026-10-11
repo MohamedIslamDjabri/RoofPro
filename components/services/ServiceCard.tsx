@@ -1,19 +1,34 @@
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
+import { motion } from 'motion/react';
 import { ServiceItem } from '@/types';
 
 interface ServiceCardProps {
   service: ServiceItem;
   currentCity?: string;
+  index?: number;
 }
 
-export default function ServiceCard({ service, currentCity }: ServiceCardProps) {
+export default function ServiceCard({ service, currentCity, index = 0 }: ServiceCardProps) {
   return (
-    <div className="group flex flex-col justify-between p-6 rounded-2xl bg-surface-container-lowest shadow-sm hover:shadow-xl transition-all duration-300 border border-outline-variant/40">
+    <motion.div
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.15 }}
+      transition={{ duration: 0.45, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
+      whileHover={{ y: -6 }}
+      className="group flex flex-col justify-between p-6 rounded-2xl bg-surface-container-lowest shadow-sm hover:shadow-xl transition-shadow duration-300 border border-outline-variant/40"
+    >
       <div className="space-y-4">
-        <div className="w-12 h-12 rounded-xl bg-surface-container-low text-primary-container flex items-center justify-center group-hover:bg-primary-container group-hover:text-on-primary transition-colors">
+        <motion.div
+          whileHover={{ scale: 1.08, rotate: -3 }}
+          transition={{ type: 'spring', stiffness: 350, damping: 18 }}
+          className="w-12 h-12 rounded-xl bg-surface-container-low text-primary-container flex items-center justify-center group-hover:bg-primary-container group-hover:text-on-primary transition-colors"
+        >
           <span className="material-symbols-outlined text-[28px]">{service.icon}</span>
-        </div>
+        </motion.div>
         <h3 className="font-headline-sm text-title-md font-bold text-primary-container">
           {service.title}
         </h3>
@@ -41,6 +56,6 @@ export default function ServiceCard({ service, currentCity }: ServiceCardProps) 
           </span>
         </Link>
       </div>
-    </div>
+    </motion.div>
   );
 }
