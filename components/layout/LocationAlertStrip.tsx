@@ -15,8 +15,8 @@ export default function LocationAlertStrip() {
   };
 
   return (
-    <div className="w-full bg-surface-container-high py-2.5 px-margin md:px-margin-md lg:px-margin-lg border-b border-outline-variant/30">
-      <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-space-sm font-label-md text-label-md text-on-surface-variant">
+    <div className="w-full bg-surface-container-high py-2.5 border-b border-outline-variant/30">
+      <div className="max-w-7xl mx-auto px-margin md:px-margin-md lg:px-margin-lg flex flex-wrap items-center justify-between gap-space-sm font-label-md text-label-md text-on-surface-variant">
         <div className="flex items-center gap-2">
           <span className="inline-flex items-center justify-center w-2 h-2 rounded-full bg-secondary animate-pulse"></span>
           <span className="text-on-surface font-medium">

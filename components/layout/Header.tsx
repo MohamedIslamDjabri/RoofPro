@@ -33,10 +33,10 @@ export default function Header() {
     <header className="fixed top-0 left-0 right-0 z-50 w-full bg-surface-container-lowest/95 backdrop-blur-md shadow-[0_2px_12px_rgba(18,55,42,0.06)] border-b border-outline-variant/30">
       {/* Main Navigation Bar */}
       <div className="w-full">
-        <div className="h-20 max-w-7xl mx-auto px-margin md:px-margin-md lg:px-margin-lg flex items-center justify-between gap-4">
+        <div className="h-20 max-w-7xl mx-auto px-margin md:px-margin-md lg:px-margin-lg flex items-center justify-between gap-2 sm:gap-4">
           {/* Left: Logo + Regional Hub Selector */}
-          <div className="flex items-center gap-3 xl:gap-4 shrink-0">
-            <Link href="/" className="flex items-center gap-2.5 group shrink-0">
+          <div className="flex items-center gap-2 xl:gap-3 shrink-0">
+            <Link href="/" className="flex items-center gap-2 group shrink-0">
               <Image
                 src={SITE_CONFIG.logoUrl}
                 alt="RoofPro USA Logo"
@@ -56,17 +56,17 @@ export default function Header() {
               </div>
             </Link>
 
-            {/* Regional Hub Selector Dropdown (Desktop) */}
+            {/* Compact Regional Hub Selector Dropdown (Desktop) */}
             <div className="relative hidden xl:block shrink-0">
               <button
                 type="button"
                 onClick={() => setDropdownOpen(!dropdownOpen)}
-                className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-surface-container-low text-primary-container border border-outline-variant/60 hover:bg-surface-container hover:text-primary transition-all font-label-md text-xs shadow-[0_1px_4px_rgba(18,55,42,0.04)] cursor-pointer whitespace-nowrap"
+                className="flex items-center gap-1.5 px-2 py-1 rounded-md bg-surface-container text-primary-container border border-outline-variant/40 hover:bg-surface-container-high transition-all text-xs font-semibold cursor-pointer whitespace-nowrap"
+                title="Select Texas Dispatch Market"
               >
-                <span className="w-2 h-2 rounded-full bg-secondary shrink-0"></span>
-                <span className="material-symbols-outlined text-[16px] text-secondary shrink-0">location_on</span>
-                <span className="font-title-md text-xs font-bold">{currentLocation.city}, TX</span>
-                <span className={`material-symbols-outlined text-[16px] text-on-surface-variant transition-transform shrink-0 ${dropdownOpen ? 'rotate-180' : ''}`}>
+                <span className="w-1.5 h-1.5 rounded-full bg-secondary shrink-0"></span>
+                <span>{currentLocation.city}, TX</span>
+                <span className={`material-symbols-outlined text-[15px] text-on-surface-variant transition-transform shrink-0 ${dropdownOpen ? 'rotate-180' : ''}`}>
                   expand_more
                 </span>
               </button>
@@ -136,14 +136,14 @@ export default function Header() {
           </div>
 
           {/* Center: Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center justify-center gap-1 xl:gap-2 shrink-0">
+          <nav className="hidden lg:flex items-center justify-center gap-0.5 xl:gap-1.5 shrink-0">
             {NAV_LINKS.map((link) => {
               const isActive = pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href));
               return (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`relative px-3 py-2 rounded-lg transition-colors font-label-lg text-sm whitespace-nowrap inline-flex items-center z-10 ${
+                  className={`relative px-2.5 xl:px-3 py-1.5 rounded-lg transition-colors font-label-lg text-xs xl:text-sm whitespace-nowrap inline-flex items-center z-10 ${
                     isActive
                       ? 'text-primary-container font-bold'
                       : 'text-on-surface-variant hover:text-on-surface hover:bg-surface-container/60'
@@ -166,14 +166,14 @@ export default function Header() {
           </nav>
 
           {/* Right: Action Buttons */}
-          <div className="flex items-center gap-2.5 xl:gap-3 shrink-0">
-            {/* Direct Phone Call */}
+          <div className="flex items-center gap-2 xl:gap-3 shrink-0">
+            {/* Direct Phone Call on extra large screens */}
             <a
-              className="hidden xl:flex items-center gap-1 text-primary-container hover:text-secondary font-label-lg text-sm px-1.5 py-1 rounded transition-colors whitespace-nowrap shrink-0"
+              className="hidden 2xl:flex items-center gap-1 text-primary-container hover:text-secondary font-label-lg text-xs px-1.5 py-1 rounded transition-colors whitespace-nowrap shrink-0"
               href={`tel:${currentLocation.phone.replace(/[^0-9]/g, '')}`}
               title={`Call local ${currentLocation.city} dispatch`}
             >
-              <span className="material-symbols-outlined text-[18px] text-secondary">call</span>
+              <span className="material-symbols-outlined text-[16px] text-secondary">call</span>
               <span className="font-bold">{currentLocation.phone}</span>
             </a>
 
@@ -181,10 +181,10 @@ export default function Header() {
             <motion.div whileHover={{ y: -1.5 }} whileTap={{ scale: 0.98 }} className="shrink-0">
               <Link
                 href="/contact?type=estimate"
-                className="bg-tertiary-fixed-dim hover:bg-tertiary-fixed text-on-tertiary-fixed font-label-lg text-xs xl:text-sm font-bold px-4 py-2.5 rounded-lg shadow-[0_2px_8px_rgba(231,184,60,0.3)] hover:shadow-[0_4px_14px_rgba(231,184,60,0.45)] transition-all inline-flex items-center gap-1.5 whitespace-nowrap shrink-0"
+                className="bg-tertiary-fixed-dim hover:bg-tertiary-fixed text-on-tertiary-fixed font-label-lg text-xs xl:text-sm font-bold px-3.5 xl:px-4 py-2.5 rounded-lg shadow-[0_2px_8px_rgba(231,184,60,0.3)] hover:shadow-[0_4px_14px_rgba(231,184,60,0.45)] transition-all inline-flex items-center gap-1.5 whitespace-nowrap shrink-0"
               >
                 <span>Get Free Estimate</span>
-                <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
+                <span className="material-symbols-outlined text-[16px] xl:text-[18px]">arrow_forward</span>
               </Link>
             </motion.div>
 
